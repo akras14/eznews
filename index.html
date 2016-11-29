@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1"> 
+        <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+        <script src="https://code.jquery.com/jquery-2.2.4.min.js"                       
+        integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44="                 
+        crossorigin="anonymous"></script>
+        <script>
+        var proxy = 'https://cors-anywhere.herokuapp.com/';
+        var newsSource = [
+            {
+                title: "BBC",
+                url: "http://feeds.bbci.co.uk/news/rss.xml?edition=us"
+            },
+            {
+                title: "Fox News",
+                url: "http://feeds.foxnews.com/foxnews/latest"
+            }
+        ];
+
+        function getNewsList(url){
+            return $.get(proxy + url)
+                .then(data => {
+                        var html = "<ul>";
+                        $(data).find("channel").find("item").each( (i,v) => {
+                            html += "<li>" + $(v).find("title").text() + "</li>";
+                            });
+                        html += "</ul>";
+                        return html;
+                        });
+        }
+
+        var newsPromises = newsSource.map(source => getNewsList(source.url));
+        Promise.all(newsPromises)
+            .then(data => {
+                    var html = "";
+                    data.forEach((val, idx) => {
+                        html += "<strong>" + newsSource[idx].title + "</strong>";
+                        html += val;
+                        });
+
+                    $("#data").append(html);
+                    });
+
+        </script>
+    </head>
+    <body>
+        <div class="container">
+            <div class="row">
+                <div id="data"></div>
+            </div>
+        </div>
+    </body>
+</html>
