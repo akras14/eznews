@@ -34,11 +34,9 @@
                         $file_time = filemtime($file);
 
                         if(file_exists($file) && ($current_time - $expire_time < $file_time)) {
-                            print "Getting from file";
                             return file_get_contents($file);
                         }
                         else {
-                            print "Getting from fresh";
                             $content = getFreshContent();
                             file_put_contents($file, $content);
                             return $content;
@@ -51,11 +49,11 @@
                         $newsSource = array(
                             array(
                                 "title" => "BBC",
-                                "url" => "http://feeds.bbci.co.uk/news/rss.xml?edition=us"
+                                "url" => "http://feeds.bbci.co.uk/news/world/rss.xml"
                             ),
                             array(
                                 "title" => "CNN",
-                                "url" => "http://rss.cnn.com/rss/cnn_topstories.rss"
+                                "url" => "http://rss.cnn.com/rss/cnn_latest.rss"
                             ),
                             array(
                                 "title" => "Fox News",
