@@ -28,6 +28,7 @@
                 <?php
 
                     function getContent() {
+                        //Thanks to https://davidwalsh.name/php-cache-function for cache idea
                         $file = "./feed-cache.txt";
                         $current_time = time();
                         $expire_time = 5 * 60;
