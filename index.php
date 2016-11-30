@@ -27,43 +27,65 @@
                 <div class="col-md-8">
                 <?php
 
-                    $html = "";
+                    function getContent() {
+                        $file = "./feed-cache.txt";
+                        $current_time = time();
+                        $expire_time = 5 * 60;
+                        $file_time = filemtime($file);
 
-                    $newsSource = array(
-                        array(
-                            "title" => "BBC",
-                            "url" => "http://feeds.bbci.co.uk/news/rss.xml?edition=us"
-                        ),
-                        array(
-                            "title" => "CNN",
-                            "url" => "http://rss.cnn.com/rss/cnn_topstories.rss"
-                        ),
-                        array(
-                            "title" => "Fox News",
-                            "url" => "http://feeds.foxnews.com/foxnews/latest"
-                        )
-                    );
-
-                    function getFeed($url){
-                        $rss = simplexml_load_file($url);
-                        $count = 0;
-                        $html .= '<ul>';
-                        foreach($rss->channel->item as$item) {
-                            $count++;
-                            if($count > 7){
-                                break;
-                            }
-                            $html .= '<li><a href="'.$item->link.'">'.$item->title.'</a></li>';
+                        if(file_exists($file) && ($current_time - $expire_time < $file_time)) {
+                            print "Getting from file";
+                            return file_get_contents($file);
                         }
-                        $html .= '</ul>';
+                        else {
+                            print "Getting from fresh";
+                            $content = getFreshContent();
+                            file_put_contents($file, $content);
+                            return $content;
+                        }
+                    }
+
+                    function getFreshContent() {
+                        $html = "";
+
+                        $newsSource = array(
+                            array(
+                                "title" => "BBC",
+                                "url" => "http://feeds.bbci.co.uk/news/rss.xml?edition=us"
+                            ),
+                            array(
+                                "title" => "CNN",
+                                "url" => "http://rss.cnn.com/rss/cnn_topstories.rss"
+                            ),
+                            array(
+                                "title" => "Fox News",
+                                "url" => "http://feeds.foxnews.com/foxnews/latest"
+                            )
+                        );
+
+                        function getFeed($url){
+                            $rss = simplexml_load_file($url);
+                            $count = 0;
+                            $html .= '<ul>';
+                            foreach($rss->channel->item as$item) {
+                                $count++;
+                                if($count > 7){
+                                    break;
+                                }
+                                $html .= '<li><a href="'.$item->link.'">'.$item->title.'</a></li>';
+                            }
+                            $html .= '</ul>';
+                            return $html;
+                        }
+
+                        foreach($newsSource as $source) {
+                            $html .= '<h2>'.$source["title"].'</h2>';
+                            $html .= getFeed($source["url"]);
+                        }
                         return $html;
                     }
 
-                    foreach($newsSource as $source) {
-                        $html .= '<h2>'.$source["title"].'</h2>';
-                        $html .= getFeed($source["url"]);
-                    }
-                    print $html;
+                    print getContent();
                 ?>
                 </div>
             </div>
