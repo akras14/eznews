@@ -7,26 +7,18 @@
         <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
         <script>
           (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-                (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-                      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-                        })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
-
-          ga('create', 'UA-15965741-1', 'alexkras.com');
-          ga('send', 'pageview');
-
+          (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+          m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+          })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+          ga('create', 'UA-15965741-1', 'alexkras.com');ga('send', 'pageview');
         </script>
-        <style>
-            body {
-                font-size: 170%;
-            }
-        </style>
+        <style>body { font-size: 170%; }</style>
     </head>
     <body>
         <div class="container">
             <div class="row">
                 <div class="col-md-8">
                 <?php
-
                     function getContent() {
                         //Thanks to https://davidwalsh.name/php-cache-function for cache idea
                         $file = "./feed-cache.txt";
@@ -46,7 +38,6 @@
 
                     function getFreshContent() {
                         $html = "";
-
                         $newsSource = array(
                             array(
                                 "title" => "BBC",
