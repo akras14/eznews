@@ -62,7 +62,7 @@
                                 if($count > 7){
                                     break;
                                 }
-                                $html .= '<li><a href="'.htmlspecialchars($mitem->link).'">'.htmlspecialchars($item->title).'</a></li>';
+                                $html .= '<li><a href="'.htmlspecialchars($item->link).'">'.htmlspecialchars($item->title).'</a></li>';
                             }
                             $html .= '</ul>';
                             return $html;
