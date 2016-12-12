@@ -50,9 +50,12 @@
                             array(
                                 "title" => "Fox News",
                                 "url" => "http://feeds.foxnews.com/foxnews/latest"
+                            ),
+                            array(
+                                "title" => "Hacker News",
+                                "url" => "https://news.ycombinator.com/rss"
                             )
                         );
-
                         function getFeed($url){
                             $rss = simplexml_load_file($url);
                             $count = 0;
