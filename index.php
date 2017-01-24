@@ -12,7 +12,10 @@
           })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
           ga('create', 'UA-15965741-1', 'alexkras.com');ga('send', 'pageview');
         </script>
-        <style>body { font-size: 170%; }</style>
+        <style>
+            body { font-size: 170%; }
+            a:visited { color: #a3bcd1; }
+        </style>
     </head>
     <body>
         <div class="container">
