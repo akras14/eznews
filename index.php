@@ -60,6 +60,7 @@
                             )
                         );
                         function getFeed($url){
+                            $html = "";
                             $rss = simplexml_load_file($url);
                             $count = 0;
                             $html .= '<ul>';
